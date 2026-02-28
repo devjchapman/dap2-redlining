@@ -1,0 +1,64 @@
+---
+title: "Untitled"
+format: html
+---
+
+```{python}
+import geopandas as gpd
+import os
+import altair as alt
+import pandas as pd
+import numpy as np
+import time
+
+PATH = r"/Users/brandontexeira/desktop/AFFHT0007-Raw-Data-2024/AFFHT0007"
+```
+
+```{python}
+path_to_affh = os.path.join(PATH, "AFFH_tract_AFFHT0007_December2024.csv")
+with open(path_to_affh, 'r', encoding='latin1') as f:
+    text = f.read()
+df_affh = pd.read_csv(path_to_affh, encoding='latin1')
+df_affh
+```
+
+```{python}
+df_il_cleaned = df_affh.copy()
+df_il_cleaned = df_il_cleaned[df_il_cleaned["geoid"].between(17000000000, 17999999999, inclusive="both")]
+df_il_rural = df_il_cleaned[~df_il_cleaned["geoid"].between(17031000000, 17031999999, inclusive="both")] #cook county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17043000000, 17043999999, inclusive="both")] #dupage county 
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17097000000, 17097999999, inclusive="both")] #lake county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17111000000, 17111999999, inclusive="both")] #mchenry county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17201000000, 17201999999, inclusive="both")] #winnebage county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17089000000, 17089999999, inclusive="both")] #kane county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17037000000, 17037999999, inclusive="both")] #dekalb county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17093000000, 17093999999, inclusive="both")] #kendall county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17197000000, 17197999999, inclusive="both")] #will county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17091000000, 17091999999, inclusive="both")] #kankakee county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17143000000, 17143999999, inclusive="both")] #peoria county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17179000000, 17179999999, inclusive="both")] #tazewell county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17113000000, 17113999999, inclusive="both")] #mclean county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17019000000, 17019999999, inclusive="both")] #champaign county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17183000000, 17183999999, inclusive="both")] #vermillion county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17167000000, 17167999999, inclusive="both")] #sangamon county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17115000000, 17115999999, inclusive="both")] #macon county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17119000000, 17119999999, inclusive="both")] #madison county
+df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17163000000, 17163999999, inclusive="both")] #st clair county
+```
+
+```{python}
+req_cols = ["Total_Population2020", "white_2020", "black_2020", "native_2020", "asian_pi_2020", "hisp_2020", "pct_white_2020", "pct_black_2020", "pct_native_2020", "pct_asian_pi_2020", "pct_hispanic_2020", "pov_idx", "haz_idx", "tcost_idx", "pct_poor_ns", "pct_nonwhite", "hh_pct_white_lt30ami", "hh_pct_black_lt30ami", "hh_pct_hisp_lt30ami", "hh_pct_ai_pi_lt30ami", "stusab", "state", "state_name", "county", "county_name", "tract"]
+df_small_rural = df_il_rural.copy()
+df_small_rural = df_small_rural[req_cols]
+df_small_cleaned = df_il_cleaned[req_cols]
+df_small_cleaned
+```
+
+```{python}
+df_il_cleaned["geoid"].value_counts()
+print(df_small_rural.columns)
+```
+
+```{python}
+print(os.getcwd())
+```
