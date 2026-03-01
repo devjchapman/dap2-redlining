@@ -1,0 +1,39 @@
+```{python}
+import geopandas as gpd
+from os.path import join
+import pandas as pd
+import os
+import matplotlib.pyplot as plt
+```
+
+```{python}
+dc_data_path = 'Data/Raw_Data/data_center_geodata/im3_open_source_data_center_atlas'
+geodata_path = 'Data/Derived_Data'
+```
+
+```{python}
+data_centers = pd.read_csv(os.path.join(dc_data_path, 'im3_open_source_data_center_atlas.csv'))
+tracts_path = os.path.join(geodata_path, "tl_2025_17_tract/tl_2025_17_tract.shp")
+tracts = gpd.read_file(tracts_path).to_crs("EPSG:4326")
+```
+
+```{python}
+data_centers = data_centers.dropna(subset=['lon', 'lat']).copy()
+geometry = gpd.points_from_xy(data_centers_df['lon'], data_centers_df['lat'])
+data_centers_gdf = gpd.GeoDataFrame(data_centers_df, geometry=geometry, crs="EPSG:4326")
+data_centers_il = data_centers_gdf[data_centers_gdf['state'] == 'Illinois']
+```
+
+```{python}
+fig, ax = plt.subplots(figsize=(8, 10))
+
+tracts.plot(ax=ax, color='#e8e8e8', edgecolor='#b0b0b0', linewidth=0.6)
+data_centers_il.plot(ax=ax, color='#DC143C', markersize=14, alpha=0.9, zorder=3,
+                     edgecolors='black', linewidths=0.5)
+
+ax.set_axis_off()
+ax.set_title('Data Centers in Illinois', fontsize=14, fontweight='bold', pad=12)
+
+plt.tight_layout()
+plt.show()
+```
