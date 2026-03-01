@@ -47,7 +47,7 @@ df_il_rural = df_il_rural[~df_il_rural["geoid"].between(17163000000, 17163999999
 ```
 
 ```{python}
-req_cols = ["Total_Population2020", "white_2020", "black_2020", "native_2020", "asian_pi_2020", "hisp_2020", "pct_white_2020", "pct_black_2020", "pct_native_2020", "pct_asian_pi_2020", "pct_hispanic_2020", "pov_idx", "haz_idx", "tcost_idx", "pct_poor_ns", "pct_nonwhite", "hh_pct_white_lt30ami", "hh_pct_black_lt30ami", "hh_pct_hisp_lt30ami", "hh_pct_ai_pi_lt30ami", "stusab", "state", "state_name", "county", "county_name", "tract"]
+req_cols = ["geoid", "Total_Population2020", "white_2020", "black_2020", "native_2020", "asian_pi_2020", "hisp_2020", "pct_white_2020", "pct_black_2020", "pct_native_2020", "pct_asian_pi_2020", "pct_hispanic_2020", "pov_idx", "haz_idx", "tcost_idx", "pct_poor_ns", "pct_nonwhite", "hh_pct_white_lt30ami", "hh_pct_black_lt30ami", "hh_pct_hisp_lt30ami", "hh_pct_ai_pi_lt30ami", "stusab", "state", "state_name", "county", "county_name", "tract"]
 df_small_rural = df_il_rural.copy()
 df_small_rural = df_small_rural[req_cols]
 df_small_cleaned = df_il_cleaned[req_cols]
@@ -55,10 +55,34 @@ df_small_cleaned
 ```
 
 ```{python}
-df_il_cleaned["geoid"].value_counts()
-print(df_small_rural.columns)
+df_small_rural.to_csv("rural_counties.csv", encoding="utf-8")
+df_small_cleaned.to_csv("all_counties.csv", encoding="utf-8")
 ```
 
 ```{python}
-print(os.getcwd())
+new_path = r"/Users/brandontexeira/dap2-redlining/Data/data_center_geodata/im3_open_source_data_center_atlas"
+path_to_atlas = os.path.join(new_path, "im3_open_source_data_center_atlas.csv")
+with open(path_to_atlas, 'r') as f:
+    text = f.read()
+df_atlas = pd.read_csv(path_to_atlas)
+df_atlas
+```
+
+```{python}
+df_atlas[df_atlas["state_abb"] == "IL"]
+#df_small_cleaned = df_small_cleaned.merge(df_atlas, left_on="county_name", right_on="county", how="inner", indicator=True)
+gpd_path = new_path = r"/Users/brandontexeira/dap2-redlining/Data/tl_2025_17_tract"
+tracts_path = os.path.join(gpd_path, "tl_2025_17_tract.shp")
+tracts = gpd.read_file(tracts_path)
+tracts
+```
+
+```{python}
+df_small_cleaned
+```
+
+```{python}
+tracts["GEOID"] = tracts["GEOID"].astype(int)
+gdf_merged = tracts.merge(df_small_cleaned, left_on="GEOID", right_on="geoid", how="inner")
+gdf_merged
 ```
