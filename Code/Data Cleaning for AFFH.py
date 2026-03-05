@@ -52,5 +52,5 @@ gdf = gdf.to_crs("EPSG:4326")
 output_dir = (script_dir / "../Data/Derived_Data").resolve()
 output_dir.mkdir(parents=True, exist_ok=True)
 
-output_path = output_dir / "cleaned_gdf.geojson"
-gdf.to_file(output_path, driver="GeoJSON")
+output_path = output_dir / "merged_gdf.gpkg"
+gdf.to_file(output_path, driver="GPKG")
