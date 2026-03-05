@@ -44,4 +44,5 @@ code/
    ```bash
    python code/app.py
    ```
+   Note that the Streamlit App must be woken up if it has not been run in 24 hours.
    
