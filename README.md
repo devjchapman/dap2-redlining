@@ -3,6 +3,8 @@
 Affirmatively Furthering Fair Housing Data and Mapping Tool data: https://uchicago.box.com/shared/static/hu6l6g8rdhkxjlly80gq8tgp37fqpgek.csv <br>
 use the AFFH_tract_AFFHT0007_December2024.csv file and run the Data Cleaning for AFFH.qmd file to create the gdf.csv file for use
 
+gdf_merged geopackage for streamlit found at: https://uchicago.box.com/shared/static/5mirakc5f539szi8kqwckt4tt493vm6y.gpkg
+
 ## Setup
 
 ```bash
