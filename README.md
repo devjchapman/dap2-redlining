@@ -37,4 +37,10 @@ code/
 2. Generate the datacenter plot:
    ```bash
    python code/data_center_map.py
+   ```
+
+3. Streamlit (https://dap2-bcd.streamlit.app/)
+   ```bash
+   python code/app.py
+   ```
    
