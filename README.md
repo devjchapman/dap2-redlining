@@ -19,12 +19,12 @@ data/
     im3_open_source_data_center_atlas.gpkg  # datacenter data
   Derived_data/       # Filtered data and output plots
     tl_2025_17_tract   # geodata
-    all_counties.csv    # 2020 Illinois data on environmental conditions and demographics
+    gdf_merged.csv(.gpkg)    # 2020 Illinois data on environmental conditions and demographics
 code/
-  preprocessing.py    # Filters data to illinois
-  data_center_map.py       # Plots datacenters
-  envhaz_plot.py           # Plots environmental hazard index across Illinois
-  poverty_plot.py          # Plots poverty index across Illinois
+  Data Cleaning for AFFH.py    # Filters data to illinois
+  data_center_map.py            # Plots datacenters
+  envhaz_plot.py                # Plots environmental hazard index across Illinois
+  poverty_plot.py               # Plots poverty index across Illinois
 ```
 
 ## Usage
