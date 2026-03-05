@@ -10,7 +10,7 @@ import folium
 from streamlit_folium import st_folium
 import branca.colormap as cm
 
-path = "../Data/Derived_Data"
+path = "Data/Derived_Data"
 
 # --- Streamlit page setup ---
 st.set_page_config(page_title="Interactive Hazard Map", layout="wide")

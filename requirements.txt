@@ -1,0 +1,12 @@
+streamlit
+pandas
+numpy
+matplotlib
+altair
+geopandas
+pyproj
+shapely
+rtree
+folium
+branca
+streamlit-folium
